@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Digital Business Card</title>
-<meta name="theme-color" content="#dfe5fb">
+<meta name="theme-color" content="#07070d">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon.svg">
@@ -103,9 +103,31 @@ body::before{content:"";position:fixed;inset:-160px;z-index:0;pointer-events:non
 @keyframes pop{40%{transform:scale(1.4) rotate(-8deg)}}
 @keyframes floatup{0%{opacity:0;transform:translateY(0) rotate(45deg)}15%{opacity:1}85%{opacity:.8}100%{opacity:0;transform:translateY(-105vh) rotate(225deg)}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ===== BLACK THEME ===== */
+.dark{--ink:#f3f2ff;--violet:#b3a8ff;--blue:#8c9dff;--muted:#9a97c2;--line:#25253d;--tint:#16162a}
+body.dark{background:linear-gradient(160deg,#0a0a16 0%,#0d0d1d 45%,#07070d 70%,#14112e 100%) fixed;background-color:#07070d}
+.dark::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23b3a8ff' stroke-opacity='.07'%3E%3Cpath d='M80 0 160 80 80 160 0 80z'/%3E%3C/g%3E%3C/svg%3E") 0 0/160px 160px}
+.dark .floaters i{border-color:rgba(179,168,255,.45);background:rgba(108,99,230,.14)}
+.dark .card{background:#0f0f1b;border-color:#25253d;box-shadow:0 1px 2px rgba(0,0,0,.4),0 24px 48px -20px rgba(110,100,255,.4)}
+.dark .banner{filter:invert(1) hue-rotate(180deg) saturate(1.2)}
+.dark .banner-wrap::after{background:linear-gradient(transparent,#0f0f1b)}
+.dark .banner-wrap::before{background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent)}
+.dark .photo{border-color:#0f0f1b}
+.dark .ph::before{background:conic-gradient(#8c9dff,#5b52c9,#8a5cf0,#8c9dff)}
+.dark .orn{color:#5b52c9}
+.dark .orn:before,.dark .orn:after{background:linear-gradient(90deg,transparent,#5b52c9)}
+.dark .about{color:#cfcdf2;border-left-color:#6c63e6}
+.dark .ghost{background:#0f0f1b;color:#f3f2ff;border-color:#34345a}
+.dark footer{color:#9a97c2}
+@media (hover:hover){
+ .dark .card:hover{box-shadow:0 1px 2px rgba(0,0,0,.4),0 34px 60px -22px rgba(110,100,255,.55)}
+ .dark a.row:hover i{background:#6c63e6;border-color:#6c63e6}
+ .dark .ghost:hover{background:#16162a;border-color:#8c9dff}
+}
 </style>
 </head>
-<body>
+<body class="dark">
 <div class="floaters" aria-hidden="true"><i style="--x:8%;--s:14px;--t:19s;--d:0s"></i><i style="--x:22%;--s:9px;--t:24s;--d:5s"></i><i style="--x:37%;--s:18px;--t:28s;--d:2s"></i><i style="--x:52%;--s:10px;--t:21s;--d:9s"></i><i style="--x:66%;--s:15px;--t:26s;--d:4s"></i><i style="--x:80%;--s:9px;--t:23s;--d:11s"></i><i style="--x:91%;--s:13px;--t:30s;--d:7s"></i></div>
 <main class="card">
   <div class="banner-wrap"><img class="banner" src="cover.jpeg" alt="D&M Elite Hosting Services logo" width="900" height="420" fetchpriority="high"></div>
@@ -129,7 +151,7 @@ body::before{content:"";position:fixed;inset:-160px;z-index:0;pointer-events:non
   <p class="toast" id="toast" role="status" aria-live="polite"></p>
   </div>
 </main>
-<footer>© 2026 Digital Business Card· Est. 2026. Developed by: Jhon Luid Abellonar</footer>
+<footer>Digital Business Card</footer>
 
 <script>
 /* ===== EDIT YOUR DETAILS HERE ===== */
