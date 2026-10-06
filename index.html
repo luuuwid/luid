@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Digital Business Card</title>
+<meta name="theme-color" content="#dfe5fb">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<style>
+:root{--ink:#26255e;--violet:#5a4a9a;--blue:#3d52d9;--muted:#76729b;--line:#e3e3f4;--tint:#f4f4fd}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{min-height:100vh;min-height:100dvh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);
+display:flex;flex-direction:column;align-items:center;justify-content:center;padding:max(18px,env(safe-area-inset-top)) 14px max(14px,env(safe-area-inset-bottom));
+background-color:#f7f7fe;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%235a4a9a' stroke-opacity='.09'%3E%3Cpath d='M80 0 160 80 80 160 0 80z'/%3E%3Cpath d='M80 28 132 80 80 132 28 80z' stroke-opacity='.06'/%3E%3C/g%3E%3C/svg%3E"),
+linear-gradient(160deg,#e4e8fb 0%,#f8f7ff 45%,#ffffff 70%,#ebe6fa 100%);
+background-size:160px 160px,100% 100%;background-attachment:fixed}
+.card{width:100%;max-width:400px;background:#fff;border:1px solid var(--line);border-radius:28px;overflow:hidden;text-align:center;
+box-shadow:0 1px 2px rgba(38,37,94,.05),0 24px 48px -20px rgba(61,82,217,.28)}
+.banner{display:block;width:100%;aspect-ratio:900/420;object-fit:cover;object-position:center 40%;background:var(--tint)}
+.banner-wrap{position:relative;height:auto}
+.banner-wrap:after{content:"";position:absolute;left:0;right:0;bottom:0;height:46px;background:linear-gradient(transparent,#fff)}
+.body{padding:0 22px 22px;margin-top:-52px;position:relative;z-index:1}
+.photo{width:104px;height:104px;margin:0 auto 14px;border-radius:50%;overflow:hidden;background:var(--tint);display:grid;place-items:center;
+border:3px solid #fff;box-shadow:0 0 0 1.5px #b9b4ec,0 10px 22px -8px rgba(61,82,217,.45)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo span{font-family:Georgia,"Times New Roman",serif;font-size:32px;font-weight:600;letter-spacing:.04em;color:var(--violet)}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:27px;line-height:1.15;font-weight:700;letter-spacing:.01em;color:var(--ink)}
+.role{margin-top:7px;font-size:15px;font-weight:500;color:var(--blue)}
+.biz{margin-top:3px;font-family:Georgia,"Times New Roman",serif;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--violet)}
+.orn{display:flex;align-items:center;gap:10px;margin:18px auto 4px;max-width:260px;color:#b9b4ec}
+.orn:before,.orn:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#b9b4ec)}
+.orn:after{transform:scaleX(-1)}
+.orn svg{width:18px;height:18px;stroke:var(--violet);stroke-width:1.2}
+.rows{text-align:left}
+.row{display:flex;gap:14px;align-items:flex-start;padding:12px 2px;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
+.row:last-child{border-bottom:0}
+.row .ico{flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--tint);border:1px solid var(--line)}
+.row .ico svg{width:18px;height:18px;stroke:var(--blue)}
+.row small{display:block;font-size:12px;color:var(--muted);margin-bottom:1px}
+.row b{font-weight:500;font-size:15px;line-height:1.35;overflow-wrap:anywhere}
+.about{margin-top:6px;padding:14px 16px;border-radius:16px;background:var(--tint);font-size:14px;line-height:1.55;color:#443f78;text-align:left;border-left:3px solid #8f86e0}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;border-radius:16px;font:600 15px/1 inherit;font-family:inherit;text-decoration:none;cursor:pointer;border:1px solid transparent;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.btn svg{width:20px;height:20px}
+.primary{width:100%;margin-top:20px;color:#fff;font-size:16px;background:linear-gradient(135deg,#2f3fbf 0%,#4a46c9 55%,#6a4fb8 100%);box-shadow:0 12px 24px -10px rgba(61,82,217,.65)}
+.primary svg{stroke:#fff}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.ghost{background:#fff;color:var(--ink);border-color:#cfcdf0}
+.ghost svg{stroke:var(--blue)}
+.toast{min-height:18px;margin-top:12px;font-size:13px;color:var(--muted)}
+footer{margin-top:16px;font-size:11px;letter-spacing:.08em;color:#9a97bd;text-align:center}
+svg{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+@media (max-height:760px){.banner{aspect-ratio:900/340}}
+.row i{flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--tint);border:1px solid var(--line)}
+.row i svg{width:18px;height:18px;margin:0;stroke:var(--blue)}
+.tag{margin-top:14px;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:13.5px;line-height:1.5;color:var(--violet)}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="banner-wrap"><img class="banner" src="cover.jpeg" alt="D&M Elite Hosting Services logo" width="900" height="420" fetchpriority="high"></div>
+  <div class="body">
+  <div class="photo" id="photo"></div>
+  <h1 id="name"></h1>
+  <p class="role" id="role"></p>
+  <p class="biz" id="biz"></p>
+  <div class="orn"><svg viewBox="0 0 24 24"><path d="M12 3l7 9-7 9-7-9z"/><path d="M12 8l3.500 4-3.500 4-3.500-4z"/></svg></div>
+  <div class="rows" id="rows"></div>
+  <p class="about" id="about"></p>
+  <p class="tag" id="tag"></p>
+  <button class="btn primary" id="save" type="button">
+    <svg viewBox="0 0 24 24"><path d="M4 4h13a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4z"/><path d="M4 8H2M4 12H2M4 16H2"/><circle cx="12" cy="10" r="2.5"/><path d="M7.5 17c.6-2 2.3-3 4.5-3s3.900 1 4.500 3"/></svg>
+    Save contact
+  </button>
+  <div class="pair">
+    <a class="btn ghost" id="call"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call</a>
+    <a class="btn ghost" id="msg"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.600 7.100L4 20l1-4.400A8 8 0 1 1 21 12z"/></svg>Message</a>
+  </div>
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
+  </div>
+</main>
+<footer>Digital Business Card</footer>
+
+<script>
+/* ===== EDIT YOUR DETAILS HERE ===== */
+const profile = {
+  fullName: "Jhon Luid Abellonar",
+  businessName: "Develuid: Online Business Card",
+  profession: "Developer",
+  phone: "09651737285",
+  phone2: "",
+  email: "abellonarjl@gmail.com",
+  address: "Palompon, Leyte, Philippines",
+  businessProfile: "Professional Developer. Developed a web based personalize business website card & official business website. NFC Google Review Card. NFC Facebook Review Card. NFC Instagram Review Card. ",
+  tagline: "Elegance in every moment, excellence in every website.",
+  profilePhoto: "cover.jpeg"
+};
+/* ================================== */
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// Converts local PH numbers (09xx...) to +639xx...; leaves international numbers alone
+function intl(n){
+  let d = String(n).replace(/[^\d+]/g,'');
+  if (d.startsWith('+')) return d;
+  if (d.startsWith('00')) return '+' + d.slice(2);
+  if (d.startsWith('0')) return '+63' + d.slice(1);
+  return d;
+}
+
+const ic = {
+  phone:'<path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  pin:'<path d="M12 21s-7-6.200-7-11.500a7 7 0 0 1 14 0C19 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/>',
+  brief:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/>',
+  biz:'<path d="M4 21V4h10v17M14 9h6v12M2 21h20M8 8h2M8 12h2M8 16h2"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  web:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.500 3 14.500 0 18M12 3c-3 3.500-3 14.500 0 18"/>'
+};
+const row = (icon, label, value, href) => {
+  if (!value) return '';
+  const tag = href ? `a href="${esc(href)}"` : 'div';
+  return `<${tag} class="row"><i><svg viewBox="0 0 24 24">${ic[icon]}</svg></i><span><small>${label}</small><b>${esc(value)}</b></span></${href?'a':'div'}>`;
+};
+
+// Render
+document.title = profile.fullName + " – Digital Business Card";
+$('name').textContent = profile.fullName;
+$('role').textContent = profile.profession;
+$('biz').textContent = profile.businessName;
+$('about').textContent = profile.businessProfile;
+$('tag').textContent = profile.tagline ? '\u201c' + profile.tagline + '\u201d' : '';
+$('rows').innerHTML =
+  row('phone','Phone',profile.phone,'tel:'+intl(profile.phone)) +
+  row('phone','Alternate phone',profile.phone2,profile.phone2 && 'tel:'+intl(profile.phone2)) +
+  row('mail','Email',profile.email,profile.email && 'mailto:'+profile.email) +
+  row('pin','Address',profile.address) +
+  row('brief','Work',profile.profession) +
+  row('biz','Business',profile.businessName) +
+  row('web','Website',profile.website,profile.website && (/^https?:/.test(profile.website)?profile.website:'https://'+profile.website));
+$('call').href = 'tel:' + intl(profile.phone);
+$('msg').href = 'sms:' + intl(profile.phone);
+
+// Photo with placeholder fallback
+const initials = profile.fullName.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+const ph = () => { $('photo').innerHTML = `<span>${esc(initials)}</span>`; };
+if (profile.profilePhoto) {
+  const img = new Image();
+  img.alt = profile.fullName; img.decoding = 'async';
+  img.onload = () => { $('photo').innerHTML = ''; $('photo').appendChild(img); };
+  img.onerror = ph;
+  ph(); img.src = profile.profilePhoto;
+} else ph();
+
+// vCard 3.0, generated locally (works offline)
+const vEsc = s => String(s||'').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+function buildVCard(p){
+  const parts = p.fullName.trim().split(/\s+/);
+  const last = parts.length > 1 ? parts.pop() : '';
+  const first = parts.join(' ');
+  const L = ['BEGIN:VCARD','VERSION:3.0',
+    `N:${vEsc(last)};${vEsc(first)};;;`,
+    `FN:${vEsc(p.fullName)}`];
+  if (p.businessName) L.push(`ORG:${vEsc(p.businessName)}`);
+  if (p.profession) L.push(`TITLE:${vEsc(p.profession)}`);
+  if (p.phone) L.push(`TEL;TYPE=CELL,VOICE,PREF:${intl(p.phone)}`);
+  if (p.phone2) L.push(`TEL;TYPE=CELL,VOICE:${intl(p.phone2)}`);
+  if (p.email) L.push(`EMAIL;TYPE=INTERNET:${p.email}`);
+  if (p.address) L.push(`ADR;TYPE=WORK:;;${vEsc(p.address)};;;;`);
+  if (p.website) L.push(`URL:${/^https?:/.test(p.website)?p.website:'https://'+p.website}`);
+  if (p.businessProfile) L.push(`NOTE:${vEsc(p.businessProfile)}`);
+  L.push('END:VCARD');
+  return L.join('\r\n') + '\r\n';
+}
+$('save').addEventListener('click', () => {
+  const blob = new Blob([buildVCard(profile)], {type:'text/vcard;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = profile.fullName.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') + '-contact.vcf';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  $('toast').textContent = 'Contact file ready. Open it to add to your phone.';
+});
+
+// Offline support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
